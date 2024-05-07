@@ -1,0 +1,11 @@
+---
+title: "Normality check"
+---
+
+This application describes whether the input values for different medical parameters are within normal bounds. Predefined thresholds for several values, including albumin, cholesterol, bilirubin, and others, are included in the program and are kept in a list called thresholds.
+
+To ascertain whether a given value falls inside the typical range for a particular parameter, the is_within_normal_range function is defined. It determines if the input value is "Normal" or "Abnormal" by comparing it to predetermined thresholds.
+
+Overall, this application helps with medical assessment and diagnosis by offering a straightforward interface for users to enter medical parameter values and rapidly ascertain whether they fall within normal ranges.\
+\
+ <https://yeshwanthreddy.shinyapps.io/appp/>

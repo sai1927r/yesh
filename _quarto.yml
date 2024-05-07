@@ -1,0 +1,32 @@
+project:
+  type: website
+
+website:
+  title: "Cirrihosis Patient"
+  navbar:
+    left:
+      - href: index.qmd 
+        text: Home
+      - href: about.qmd
+        text: Analysis
+      - href: application.qmd
+        text: Normality Check
+      - href: researchquestion.qmd
+        text: Research Questions
+    right:
+      - href: code.qmd
+        text: Code
+      - href: contactus.qmd
+        text: Contact Us
+
+format:
+  html:
+    code-fold: true
+    code-summary: "Show the code"
+    theme: flatly
+    css: styles.css
+    toc: true
+
+editor: visual
+
+

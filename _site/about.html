@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Cirrihosis Patient - Statistical Analysis of the Dataset</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Cirrihosis Patient</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./about.html" rel="" target="" aria-current="page">
+ <span class="menu-text">Analysis</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./application.html" rel="" target="">
+ <span class="menu-text">Normality Check</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./researchquestion.html" rel="" target="">
+ <span class="menu-text">Research Questions</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./code.html" rel="" target="">
+ <span class="menu-text">Code</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./contactus.html" rel="" target="">
+ <span class="menu-text">Contact Us</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#distribution-of-variables" id="toc-distribution-of-variables" class="nav-link active" data-scroll-target="#distribution-of-variables">Distribution of Variables</a></li>
+  <li><a href="#disease-affecting-the-target-variable" id="toc-disease-affecting-the-target-variable" class="nav-link" data-scroll-target="#disease-affecting-the-target-variable">Disease affecting the target variable</a></li>
+  <li><a href="#clustering" id="toc-clustering" class="nav-link" data-scroll-target="#clustering">Clustering</a></li>
+  <li><a href="#describing-which-variables-are-heavily-abnormal" id="toc-describing-which-variables-are-heavily-abnormal" class="nav-link" data-scroll-target="#describing-which-variables-are-heavily-abnormal">Describing which variables are heavily abnormal</a></li>
+  <li><a href="#overall-summary-of-dataset" id="toc-overall-summary-of-dataset" class="nav-link" data-scroll-target="#overall-summary-of-dataset">Overall summary of dataset</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Statistical Analysis of the Dataset</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="distribution-of-variables" class="level3">
+<h3 class="anchored" data-anchor-id="distribution-of-variables">Distribution of Variables</h3>
+<p>It represents the number of visualizations to examine the distribution of different variables in the dataset using the R ggplot2 library. Different plots are produced by each ggplot call; they include histograms for continuous variables like age, bilirubin levels, and platelet counts, and bar charts for categorical variables like drug type, sex, and disease status. Value distribution is efficiently seen by building the histograms with predetermined bin widths. With their thorough overview of the dataset, these visualizations make it easier to spot trends, patterns, and possible outliers in a variety of variables. All things considered, this method effectively condenses the dataset’s distributional properties, providing a strong basis for more exploratory data analysis and statistical modeling.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">"C:/Users/HP/Downloads/cirrhosis+patient+survival+prediction+dataset-1/cirrhosis.csv"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>missing_values <span class="ot">&lt;-</span> <span class="fu">colSums</span>(<span class="fu">is.na</span>(data))</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># If there are missing values, impute them using mean imputation</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>data_imputed <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(data)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>cirrhosis_data <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(data_imputed)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cirrhosis_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  ID N_Days Status            Drug   Age Sex Ascites Hepatomegaly Spiders Edema
+1  1    400      D D-penicillamine 21464   F       Y            Y       Y     Y
+2  2   4500      C D-penicillamine 20617   F       N            Y       Y     N
+3  3   1012      D D-penicillamine 25594   M       N            N       N     S
+4  4   1925      D D-penicillamine 19994   F       N            Y       Y     S
+5  5   1504     CL         Placebo 13918   F       N            Y       Y     N
+7  7   1832      C         Placebo 20284   F       N            Y       N     N
+  Bilirubin Cholesterol Albumin Copper Alk_Phos   SGOT Tryglicerides Platelets
+1      14.5         261    2.60    156   1718.0 137.95           172       190
+2       1.1         302    4.14     54   7394.8 113.52            88       221
+3       1.4         176    3.48    210    516.0  96.10            55       151
+4       1.8         244    2.54     64   6121.8  60.63            92       183
+5       3.4         279    3.53    143    671.0 113.15            72       136
+7       1.0         322    4.09     52    824.0  60.45           213       204
+  Prothrombin Stage
+1        12.2     4
+2        10.6     3
+3        12.0     4
+4        10.3     4
+5        10.9     3
+7         9.7     3</code></pre>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)  </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Drug</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_imputed, <span class="fu">aes</span>(<span class="at">x =</span> Drug)) <span class="sc">+</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"skyblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Drug"</span>, <span class="at">y =</span> <span class="st">"Count"</span>, <span class="at">title =</span> <span class="st">"Distribution of Drug"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="about_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Age</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_imputed, <span class="fu">aes</span>(<span class="at">x =</span> Age)) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1000</span>, <span class="at">fill =</span> <span class="st">"skyblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Age"</span>, <span class="at">y =</span> <span class="st">"Frequency"</span>, <span class="at">title =</span> <span class="st">"Distribution of Age"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="about_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ascites</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_imputed, <span class="fu">aes</span>(<span class="at">x =</span> Ascites)) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"skyblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Ascites"</span>, <span class="at">y =</span> <span class="st">"Count"</span>, <span class="at">title =</span> <span class="st">"Distribution of Ascites"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="about_files/figure-html/unnamed-chunk-2-3.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Hepatomegaly</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_imputed, <span class="fu">aes</span>(<span class="at">x =</span> Hepatomegaly)) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"skyblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Hepatomegaly"</span>, <span class="at">y =</span> <span class="st">"Count"</span>, <span class="at">title =</span> <span class="st">"Distribution of Hepatomegaly"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="about_files/figure-html/unnamed-chunk-2-4.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Spiders</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_imputed, <span class="fu">aes</span>(<span class="at">x =</span> Spiders)) <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"skyblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Spiders"</span>, <span class="at">y =</span> <span class="st">"Count"</span>, <span class="at">title =</span> <span class="st">"Distribution of Spiders"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="about_files/figure-html/unnamed-chunk-2-5.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Edema</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_imputed, <span class="fu">aes</span>(<span class="at">x =</span> Edema)) <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"skyblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Edema"</span>, <span class="at">y =</span> <span class="st">"Count"</span>, <span class="at">title =</span> <span class="st">"Distribution of Edema"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="about_files/figure-html/unnamed-chunk-2-6.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bilirubin</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_imputed, <span class="fu">aes</span>(<span class="at">x =</span> Bilirubin)) <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">fill =</span> <span class="st">"skyblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bilirubin"</span>, <span class="at">y =</span> <span class="st">"Frequency"</span>, <span class="at">title =</span> <span class="st">"Distribution of Bilirubin"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="about_files/figure-html/unnamed-chunk-2-7.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cholesterol</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_imputed, <span class="fu">aes</span>(<span class="at">x =</span> Cholesterol)) <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">50</span>, <span class="at">fill =</span> <span class="st">"skyblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Cholesterol"</span>, <span class="at">y =</span> <span class="st">"Frequency"</span>, <span class="at">title =</span> <span class="st">"Distribution of Cholesterol"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="about_files/figure-html/unnamed-chunk-2-8.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Albumin</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_imputed, <span class="fu">aes</span>(<span class="at">x =</span> Albumin)) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.5</span>, <span class="at">fill =</span> <span class="st">"skyblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Albumin"</span>, <span class="at">y =</span> <span class="st">"Frequency"</span>, <span class="at">title =</span> <span class="st">"Distribution of Albumin"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="about_files/figure-html/unnamed-chunk-2-9.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Copper</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_imputed, <span class="fu">aes</span>(<span class="at">x =</span> Copper)) <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">50</span>, <span class="at">fill =</span> <span class="st">"skyblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Copper"</span>, <span class="at">y =</span> <span class="st">"Frequency"</span>, <span class="at">title =</span> <span class="st">"Distribution of Copper"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="about_files/figure-html/unnamed-chunk-2-10.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Alk_Phos</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_imputed, <span class="fu">aes</span>(<span class="at">x =</span> Alk_Phos)) <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">500</span>, <span class="at">fill =</span> <span class="st">"skyblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Alkaline Phosphatase"</span>, <span class="at">y =</span> <span class="st">"Frequency"</span>, <span class="at">title =</span> <span class="st">"Distribution of Alkaline Phosphatase"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="about_files/figure-html/unnamed-chunk-2-11.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># SGOT</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_imputed, <span class="fu">aes</span>(<span class="at">x =</span> SGOT)) <span class="sc">+</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">10</span>, <span class="at">fill =</span> <span class="st">"skyblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"SGOT"</span>, <span class="at">y =</span> <span class="st">"Frequency"</span>, <span class="at">title =</span> <span class="st">"Distribution of SGOT"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="about_files/figure-html/unnamed-chunk-2-12.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Triglycerides</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_imputed, <span class="fu">aes</span>(<span class="at">x =</span> Tryglicerides)) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">10</span>, <span class="at">fill =</span> <span class="st">"skyblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Triglycerides"</span>, <span class="at">y =</span> <span class="st">"Frequency"</span>, <span class="at">title =</span> <span class="st">"Distribution of Triglycerides"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="about_files/figure-html/unnamed-chunk-2-13.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Platelets</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_imputed, <span class="fu">aes</span>(<span class="at">x =</span> Platelets)) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">50</span>, <span class="at">fill =</span> <span class="st">"skyblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Platelets"</span>, <span class="at">y =</span> <span class="st">"Frequency"</span>, <span class="at">title =</span> <span class="st">"Distribution of Platelets"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="about_files/figure-html/unnamed-chunk-2-14.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prothrombin</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_imputed, <span class="fu">aes</span>(<span class="at">x =</span> Prothrombin)) <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.5</span>, <span class="at">fill =</span> <span class="st">"skyblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Prothrombin"</span>, <span class="at">y =</span> <span class="st">"Frequency"</span>, <span class="at">title =</span> <span class="st">"Distribution of Prothrombin"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="about_files/figure-html/unnamed-chunk-2-15.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Stage</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_imputed, <span class="fu">aes</span>(<span class="at">x =</span> Stage)) <span class="sc">+</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"skyblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Stage"</span>, <span class="at">y =</span> <span class="st">"Count"</span>, <span class="at">title =</span> <span class="st">"Distribution of Stage"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="about_files/figure-html/unnamed-chunk-2-16.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="disease-affecting-the-target-variable" class="level3">
+<h3 class="anchored" data-anchor-id="disease-affecting-the-target-variable">Disease affecting the target variable</h3>
+<p>A chi-square test is a statistical test used&nbsp;to compare observed results with expected results. The purpose of these chi-square tests is to evaluate the relationship between the target variable Status and each disease-related characteristic (edema, spiders, hepatomegaly, and ascites). The distribution of the disease-related characteristic is independent of the severity of the condition represented by Status, according to the null hypothesis for each test, which states that there is no association between the disease-related feature and Status. An relationship between the two variables is the alternate hypothesis.<br>
+Each chi-square test’s p-value expresses the likelihood of seeing the data in the event that the null hypothesis were correct. A low p-value (&lt; 0.05) indicates that there is enough data to rule out the null hypothesis and draw the conclusion that Status and the disease-related characteristic are significantly correlated.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create contingency tables for each disease-related feature and Status</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>table_ascites <span class="ot">&lt;-</span> <span class="fu">table</span>(data_imputed<span class="sc">$</span>Ascites, data_imputed<span class="sc">$</span>Status)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>table_hepatomegaly <span class="ot">&lt;-</span> <span class="fu">table</span>(data_imputed<span class="sc">$</span>Hepatomegaly, data_imputed<span class="sc">$</span>Status)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>table_spiders <span class="ot">&lt;-</span> <span class="fu">table</span>(data_imputed<span class="sc">$</span>Spiders, data_imputed<span class="sc">$</span>Status)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>table_edema <span class="ot">&lt;-</span> <span class="fu">table</span>(data_imputed<span class="sc">$</span>Edema, data_imputed<span class="sc">$</span>Status)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize the relationship using stacked bar charts</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))  <span class="co"># Set up a 2x2 layout for plots</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(table_ascites, <span class="at">beside =</span> <span class="cn">TRUE</span>, <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">main =</span> <span class="st">"Ascites vs. Status"</span>)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(table_hepatomegaly, <span class="at">beside =</span> <span class="cn">TRUE</span>, <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">main =</span> <span class="st">"Hepatomegaly vs. Status"</span>)</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(table_spiders, <span class="at">beside =</span> <span class="cn">TRUE</span>, <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">main =</span> <span class="st">"Spiders vs. Status"</span>)</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(table_edema, <span class="at">beside =</span> <span class="cn">TRUE</span>, <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">main =</span> <span class="st">"Edema vs. Status"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="about_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Conduct chi-square tests for independence</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>chi_sq_ascites <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(table_ascites)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>chi_sq_hepatomegaly <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(table_hepatomegaly)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>chi_sq_spiders <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(table_spiders)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>chi_sq_edema <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(table_edema)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the results of chi-square tests</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Chi-square test results for Ascites vs. Status:"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Chi-square test results for Ascites vs. Status:"</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(chi_sq_ascites)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test
+
+data:  table_ascites
+X-squared = 25.237, df = 2, p-value = 3.31e-06</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Chi-square test results for Hepatomegaly vs. Status:"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Chi-square test results for Hepatomegaly vs. Status:"</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(chi_sq_hepatomegaly)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test
+
+data:  table_hepatomegaly
+X-squared = 24.805, df = 2, p-value = 4.109e-06</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Chi-square test results for Spiders vs. Status:"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Chi-square test results for Spiders vs. Status:"</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(chi_sq_spiders)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test
+
+data:  table_spiders
+X-squared = 14.5, df = 2, p-value = 0.0007102</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Chi-square test results for Edema vs. Status:"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Chi-square test results for Edema vs. Status:"</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(chi_sq_edema)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test
+
+data:  table_edema
+X-squared = 31.267, df = 4, p-value = 2.7e-06</code></pre>
+</div>
+</div>
+<p>Although the p-value (0.0007102) is slightly larger than the typical significance level of 0.05, it is still considered statistically significant. Thus, we conclude that there is a significant association between Spiders and Status.</p>
+</section>
+<section id="clustering" class="level3">
+<h3 class="anchored" data-anchor-id="clustering">Clustering</h3>
+<p>The thresholds for aberrant values derived from broad reference ranges for a variety of laboratory measures that are frequently linked to the health and function of the liver.</p>
+<p>To find patient groups with comparable laboratory profiles, we apply k-means clustering to the scaled laboratory values.</p>
+<p>Construction of a survival object based on the time to an event death and fits a survival model using the Kaplan-Meier estimator. Kaplan-Meier survival curves are plotted for each cluster, showing the probability of survival over time.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define thresholds for abnormal values based on general reference ranges</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>thresholds <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Bilirubin =</span> <span class="fu">c</span>(<span class="fl">0.3</span>, <span class="fl">1.2</span>),              <span class="co"># Normal total bilirubin levels (mg/dL)</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Cholesterol =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">200</span>),               <span class="co"># Normal total cholesterol levels (mg/dL)</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Albumin =</span> <span class="fu">c</span>(<span class="fl">3.5</span>, <span class="fl">5.0</span>),                 <span class="co"># Normal serum albumin levels (g/dL)</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Copper =</span> <span class="fu">c</span>(<span class="dv">70</span>, <span class="dv">140</span>),                   <span class="co"># Normal serum copper levels (µg/dL)</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Alk_Phos =</span> <span class="fu">c</span>(<span class="dv">44</span>, <span class="dv">147</span>),                 <span class="co"># Normal alkaline phosphatase levels (IU/L)</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">SGOT =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">40</span>),                       <span class="co"># Normal serum glutamic-oxaloacetic transaminase levels (IU/L)</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">Tryglicerides =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">150</span>),             <span class="co"># Normal triglyceride levels (mg/dL)</span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">Platelets =</span> <span class="fu">c</span>(<span class="dv">150</span>, <span class="dv">450</span>),         <span class="co"># Normal platelet counts (per microliter of blood)</span></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">Prothrombin =</span> <span class="fu">c</span>(<span class="dv">11</span>, <span class="fl">13.5</span>)              <span class="co"># Normal prothrombin time (seconds)</span></span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the relevant lab value columns</span></span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>lab_columns <span class="ot">&lt;-</span> cirrhosis_data <span class="sc">%&gt;%</span></span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Bilirubin, Cholesterol, Albumin, Copper, Alk_Phos, SGOT, Tryglicerides, Platelets, Prothrombin)</span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure numeric lab values</span></span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a>lab_columns <span class="ot">&lt;-</span> lab_columns <span class="sc">%&gt;%</span> <span class="fu">mutate_all</span>(as.numeric)</span>
+<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify rows without missing values</span></span>
+<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a>complete_cases <span class="ot">&lt;-</span> <span class="fu">complete.cases</span>(lab_columns)</span>
+<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter both the original and lab data based on complete rows</span></span>
+<span id="cb36-25"><a href="#cb36-25" aria-hidden="true" tabindex="-1"></a>lab_values <span class="ot">&lt;-</span> lab_columns[complete_cases, ]</span>
+<span id="cb36-26"><a href="#cb36-26" aria-hidden="true" tabindex="-1"></a>cirrhosis_data_clean <span class="ot">&lt;-</span> cirrhosis_data[complete_cases, ]</span>
+<span id="cb36-27"><a href="#cb36-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-28"><a href="#cb36-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply k-means clustering</span></span>
+<span id="cb36-29"><a href="#cb36-29" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb36-30"><a href="#cb36-30" aria-hidden="true" tabindex="-1"></a>kmeans_clusters <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(<span class="fu">scale</span>(lab_values), <span class="at">centers =</span> <span class="dv">3</span>)  <span class="co"># Adjust the number of clusters as needed</span></span>
+<span id="cb36-31"><a href="#cb36-31" aria-hidden="true" tabindex="-1"></a>cirrhosis_data_clean<span class="sc">$</span>Cluster <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(kmeans_clusters<span class="sc">$</span>cluster)</span>
+<span id="cb36-32"><a href="#cb36-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-33"><a href="#cb36-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to classify values based on thresholds</span></span>
+<span id="cb36-34"><a href="#cb36-34" aria-hidden="true" tabindex="-1"></a>classify_abnormal <span class="ot">&lt;-</span> <span class="cf">function</span>(value, range) {</span>
+<span id="cb36-35"><a href="#cb36-35" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.na</span>(value)) {</span>
+<span id="cb36-36"><a href="#cb36-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="cn">NA</span>)</span>
+<span id="cb36-37"><a href="#cb36-37" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (value <span class="sc">&lt;</span> range[<span class="dv">1</span>] <span class="sc">||</span> value <span class="sc">&gt;</span> range[<span class="dv">2</span>]) {</span>
+<span id="cb36-38"><a href="#cb36-38" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="st">"Abnormal"</span>)</span>
+<span id="cb36-39"><a href="#cb36-39" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb36-40"><a href="#cb36-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="st">"Normal"</span>)</span>
+<span id="cb36-41"><a href="#cb36-41" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb36-42"><a href="#cb36-42" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb36-43"><a href="#cb36-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-44"><a href="#cb36-44" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply the function to classify each lab value based on the thresholds</span></span>
+<span id="cb36-45"><a href="#cb36-45" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (param <span class="cf">in</span> <span class="fu">names</span>(thresholds)) {</span>
+<span id="cb36-46"><a href="#cb36-46" aria-hidden="true" tabindex="-1"></a>  cirrhosis_data_clean[[<span class="fu">paste0</span>(param, <span class="st">"_Class"</span>)]] <span class="ot">&lt;-</span> <span class="fu">mapply</span>(classify_abnormal, cirrhosis_data_clean[[param]], <span class="at">MoreArgs =</span> <span class="fu">list</span>(<span class="at">range =</span> thresholds[[param]]))</span>
+<span id="cb36-47"><a href="#cb36-47" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb36-48"><a href="#cb36-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-49"><a href="#cb36-49" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the proportion of abnormal lab values per cluster</span></span>
+<span id="cb36-50"><a href="#cb36-50" aria-hidden="true" tabindex="-1"></a>abnormal_props <span class="ot">&lt;-</span> cirrhosis_data_clean <span class="sc">%&gt;%</span></span>
+<span id="cb36-51"><a href="#cb36-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Cluster) <span class="sc">%&gt;%</span></span>
+<span id="cb36-52"><a href="#cb36-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">across</span>(<span class="fu">ends_with</span>(<span class="st">"_Class"</span>), <span class="sc">~</span> <span class="fu">mean</span>(. <span class="sc">==</span> <span class="st">"Abnormal"</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)))</span>
+<span id="cb36-53"><a href="#cb36-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-54"><a href="#cb36-54" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(abnormal_props)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 10
+  Cluster Bilirubin_Class Cholesterol_Class Albumin_Class Copper_Class
+  &lt;fct&gt;             &lt;dbl&gt;             &lt;dbl&gt;         &lt;dbl&gt;        &lt;dbl&gt;
+1 1                 0.978             0.911         0.756        0.733
+2 2                 0.496             0.866         0.433        0.756
+3 3                 0.452             1             0.298        0.606
+# ℹ 5 more variables: Alk_Phos_Class &lt;dbl&gt;, SGOT_Class &lt;dbl&gt;,
+#   Tryglicerides_Class &lt;dbl&gt;, Platelets_Class &lt;dbl&gt;, Prothrombin_Class &lt;dbl&gt;</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Survival Analysis</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the survival object</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>surv_obj <span class="ot">&lt;-</span> <span class="fu">Surv</span>(<span class="at">time =</span> cirrhosis_data_clean<span class="sc">$</span>N_Days, <span class="at">event =</span> <span class="fu">ifelse</span>(cirrhosis_data_clean<span class="sc">$</span>Status <span class="sc">==</span> <span class="st">"D"</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the survival model by clusters</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">survfit</span>(surv_obj <span class="sc">~</span> Cluster, <span class="at">data =</span> cirrhosis_data_clean)</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot Kaplan-Meier survival curves</span></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit, <span class="at">col =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">lty =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">xlab =</span> <span class="st">"Time (days)"</span>, <span class="at">ylab =</span> <span class="st">"Survival Probability"</span>)</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>, <span class="at">legend =</span> <span class="fu">levels</span>(cirrhosis_data_clean<span class="sc">$</span>Cluster), <span class="at">col =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">lty =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Log-rank test to compare survival curves</span></span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>log_rank_test <span class="ot">&lt;-</span> <span class="fu">survdiff</span>(surv_obj <span class="sc">~</span> Cluster, <span class="at">data =</span> cirrhosis_data_clean)</span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(log_rank_test<span class="sc">$</span>chisq, <span class="fu">length</span>(log_rank_test<span class="sc">$</span>n) <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="at">sub =</span> <span class="fu">paste</span>(<span class="st">"Log-rank p-value:"</span>, <span class="fu">round</span>(p_value, <span class="dv">4</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="about_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="describing-which-variables-are-heavily-abnormal" class="level3">
+<h3 class="anchored" data-anchor-id="describing-which-variables-are-heavily-abnormal">Describing which variables are heavily abnormal</h3>
+<p>In general, this code offers a methodical approach to recognize observations that display significant departures from typical values for several laboratory parameters, assisting in the identification of potentially alarming situations that require additional examination.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the midpoint of the threshold range for each variable</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>threshold_midpoints <span class="ot">&lt;-</span> <span class="fu">sapply</span>(thresholds, <span class="cf">function</span>(x) <span class="fu">mean</span>(x))</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the distance of each observation's value from the midpoint of the threshold range for each variable</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>distances <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="fu">names</span>(thresholds), <span class="cf">function</span>(var) <span class="fu">abs</span>(cirrhosis_data_clean[[var]] <span class="sc">-</span> threshold_midpoints[var]))</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize the distance across all threshold variables for each observation</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>total_distance <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(distances)</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a threshold for defining "heavily abnormal" observations</span></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>threshold_distance <span class="ot">&lt;-</span> <span class="dv">3</span>  <span class="co"># Example threshold (can be adjusted based on your requirements)</span></span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Determine which variables are heavily abnormal for each observation</span></span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>heavily_abnormal_vars <span class="ot">&lt;-</span> <span class="fu">apply</span>(distances, <span class="dv">1</span>, <span class="cf">function</span>(x) <span class="fu">names</span>(thresholds)[x <span class="sc">&gt;</span> threshold_distance])</span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new column indicating observations where the summarized distance exceeds the defined threshold</span></span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>cirrhosis_data_clean<span class="sc">$</span>Heavily_Abnormal <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(total_distance <span class="sc">&gt;</span> threshold_distance, <span class="fu">paste0</span>(<span class="st">"("</span>, <span class="fu">paste</span>(heavily_abnormal_vars, <span class="at">collapse =</span> <span class="st">", "</span>), <span class="st">")"</span>), <span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="overall-summary-of-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="overall-summary-of-dataset">Overall summary of dataset</h3>
+<p>An overview of each variable’s value distribution is given by this, making it easier to see any potential outliers or odd patterns, boxplots to see how the same variables are distributed. Boxplots make it simple to compare distributions across variables by displaying the data’s median, quartiles, and any outliers. In general, this code offers a methodical approach to recognize observations that display significant departures from typical values for several laboratory parameters, assisting in the identification of potentially alarming situations that require additional examination.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate summary statistics</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>summary_stats <span class="ot">&lt;-</span> <span class="fu">summary</span>(data_imputed[, <span class="fu">c</span>(<span class="st">"Bilirubin"</span>, <span class="st">"Cholesterol"</span>, <span class="st">"Albumin"</span>, <span class="st">"Copper"</span>, <span class="st">"Alk_Phos"</span>, <span class="st">"SGOT"</span>, <span class="st">"Tryglicerides"</span>, <span class="st">"Platelets"</span>, <span class="st">"Prothrombin"</span>)])</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(summary_stats)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Bilirubin       Cholesterol        Albumin          Copper      
+ Min.   : 0.300   Min.   : 120.0   Min.   :1.960   Min.   :  4.00  
+ 1st Qu.: 0.800   1st Qu.: 249.5   1st Qu.:3.310   1st Qu.: 42.75  
+ Median : 1.400   Median : 310.0   Median :3.545   Median : 74.00  
+ Mean   : 3.334   Mean   : 371.3   Mean   :3.517   Mean   :100.77  
+ 3rd Qu.: 3.525   3rd Qu.: 401.0   3rd Qu.:3.772   3rd Qu.:129.25  
+ Max.   :28.000   Max.   :1775.0   Max.   :4.400   Max.   :588.00  
+    Alk_Phos            SGOT        Tryglicerides     Platelets    
+ Min.   :  289.0   Min.   : 28.38   Min.   : 33.0   Min.   : 62.0  
+ 1st Qu.:  922.5   1st Qu.: 82.46   1st Qu.: 85.0   1st Qu.:200.0  
+ Median : 1277.5   Median :116.62   Median :108.0   Median :257.0  
+ Mean   : 1996.6   Mean   :124.12   Mean   :125.0   Mean   :261.8  
+ 3rd Qu.: 2068.2   3rd Qu.:153.45   3rd Qu.:151.2   3rd Qu.:318.2  
+ Max.   :13862.4   Max.   :457.25   Max.   :598.0   Max.   :563.0  
+  Prothrombin   
+ Min.   : 9.00  
+ 1st Qu.:10.00  
+ Median :10.60  
+ Mean   :10.74  
+ 3rd Qu.:11.20  
+ Max.   :17.10  </code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">#measures such as mean, median, standard deviation, minimum, and maximum. This will give you an overview of the distribution of values and help identify potential outliers.</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize the distribution using boxplots</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(data[, <span class="fu">c</span>(<span class="st">"Bilirubin"</span>, <span class="st">"Cholesterol"</span>, <span class="st">"Albumin"</span>, <span class="st">"Copper"</span>, <span class="st">"Alk_Phos"</span>, <span class="st">"SGOT"</span>, <span class="st">"Tryglicerides"</span>, <span class="st">"Platelets"</span>, <span class="st">"Prothrombin"</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="about_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

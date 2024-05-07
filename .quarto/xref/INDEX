@@ -1,0 +1,56 @@
+{
+  "about.qmd": {
+    "about.html": "26008c26"
+  },
+  "application.qmd": {
+    "application.html": "a004f249"
+  },
+  "code.qmd": {
+    "code.html": "7a95c11d"
+  },
+  "contactus.qmd": {
+    "contactus.html": "89dfc91c"
+  },
+  "index.qmd": {
+    "index.html": "807aeb06"
+  },
+  "researchquestion.qmd": {
+    "researchquestion.html": "e287153b"
+  },
+  "stat515finalprojectt/about.qmd": {
+    "about.html": "21a068ac"
+  },
+  "stat515finalprojectt/application.qmd": {
+    "application.html": "47cdb2f9"
+  },
+  "stat515finalprojectt/code.qmd": {
+    "code.html": "2add38bd"
+  },
+  "stat515finalprojectt/contactus.qmd": {
+    "contactus.html": "ceb48bac"
+  },
+  "stat515finalprojectt/index.qmd": {
+    "index.html": "cd17c218"
+  },
+  "stat515finalprojectt/researchquestion.qmd": {
+    "researchquestion.html": "3d172bfa"
+  },
+  "project1/about.qmd": {
+    "about.html": "53d40779"
+  },
+  "project1/application.qmd": {
+    "application.html": "9784f5e4"
+  },
+  "project1/code.qmd": {
+    "code.html": "b2e42c30"
+  },
+  "project1/contactus.qmd": {
+    "contactus.html": "961d07ed"
+  },
+  "project1/index.qmd": {
+    "index.html": "b8b6ebc8"
+  },
+  "project1/researchquestion.qmd": {
+    "researchquestion.html": "24f9fa54"
+  }
+}

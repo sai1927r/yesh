@@ -1,0 +1,13 @@
+name: Stat515finalproject
+title: Stat515finalproject
+username: yeshwanthreddy
+account: yeshwanthreddy
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 11943258
+bundleId: 8581914
+url: https://yeshwanthreddy.shinyapps.io/Stat515finalproject/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: .RData|_quarto.yml|3.jpg|about.qmd|application.qmd|code.qmd|contactus.qmd|index.qmd|researchquestion.qmd|styles.css|_site
